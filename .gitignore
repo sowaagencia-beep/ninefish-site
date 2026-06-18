@@ -1,0 +1,14 @@
+# Configuração local de ferramentas (Claude Code / preview)
+.claude/
+
+# Arquivos temporários de edição
+*.tmp
+*.tmp.*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependências (caso venha a usar build tools no futuro)
+node_modules/
