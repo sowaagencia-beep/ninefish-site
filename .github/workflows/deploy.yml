@@ -1,0 +1,31 @@
+name: Deploy site via FTP
+
+# Sempre que houver push na branch main, o site é publicado no servidor.
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # permite rodar manualmente pelo painel do GitHub
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Publicar via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          server-dir: public_html/
+          # Arquivos que NÃO devem ir para o servidor:
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            README.md
+            .gitignore
